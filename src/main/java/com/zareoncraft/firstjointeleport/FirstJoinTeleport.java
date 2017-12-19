@@ -12,7 +12,7 @@ public class FirstJoinTeleport extends JavaPlugin {
 
         getLogger().info("FJT Ativado!");
 
-        getServer().getPluginManager().registerEvents(new JoinServerListener(), this);
+        getServer().getPluginManager().registerEvents(new JoinServerListener(this), this);
 
     }
 

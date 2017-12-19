@@ -1,6 +1,9 @@
-random_teleport: false
+random_teleport:
+  random: false
+  range: 1000
 
 world:
-  x: 0
-  y: 0
-  z: 0
+  name: teste
+  x: 300
+  y: 450
+  z: 112

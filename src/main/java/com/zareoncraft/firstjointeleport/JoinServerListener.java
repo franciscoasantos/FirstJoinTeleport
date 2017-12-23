@@ -1,7 +1,6 @@
 package com.zareoncraft.firstjointeleport;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -9,41 +8,56 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class JoinServerListener implements Listener {
 
-    JavaPlugin plugin;
+	private JavaPlugin plugin;
+	private boolean randomTp;
+	private int x, y, z, range;
+	private String world;
 
-    public JoinServerListener(JavaPlugin plugin) {
-        this.plugin = plugin;
-    }
+	JoinServerListener(JavaPlugin plugin) {
+		this.plugin = plugin;
+	}
 
-    @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
-        boolean randomTp;
-        Location location;
+	@EventHandler
+	public void teleportPlayer(PlayerJoinEvent event) {
 
-        String world;
-        int x, y, z, range;
+		this.getConfigs();
 
-        world = plugin.getConfig().getString("world.name");
-        randomTp = plugin.getConfig().getBoolean("random_teleport");
+		//if (!event.getPlayer().hasPlayedBefore()) {
+		if (randomTp) {
+			Bukkit.getConsoleSender().sendMessage("§4Random TP Ativado.");
 
-        x = plugin.getConfig().getInt("world.x");
-        y = plugin.getConfig().getInt("world.y");
-        z = plugin.getConfig().getInt("world.z");
+			Teleport tp = new Teleport(Bukkit.getWorld(this.world), range);
 
-        //range = plugin.getConfig().getInt("random_teleport.range");
+			tp.randomTeleportPlayer(event.getPlayer());
 
-        location = new Location(Bukkit.getWorld(world), x, y, z);
+		} else {
+			try {
+				Bukkit.getConsoleSender().sendMessage("§4TP Fixo Ativado.");
 
-        //location.getWorld().getHighestBlockYAt(3,3);
+				Teleport tp = new Teleport(this.world, this.x, this.y, this.z);
 
-        if (!event.getPlayer().hasPlayedBefore()) {
-//            if (randomTp) {
-//                x = (int) (Math.random() * range);
-//                y = (int) (Math.random() * range);
-//            }
-            event.getPlayer().teleport(location);
-            //event.getPlayer().sendMessage("teleportando para " + "X " + x + "Y " + y + "Z " + z);
-        }
+				tp.fixedTeleportPlayer(event.getPlayer());
 
-    }
+				//event.getPlayer().teleport(getFixedLocation());
+			} catch (NullPointerException ex) {
+				Bukkit.getConsoleSender().sendMessage("§5O mundo declarado em world.name no config.yml não foi encontrado.\n" + ex.getMessage());
+			}
+		}
+		//}
+	}
+
+	private void getConfigs() {
+		world = plugin.getConfig().getString("world.name");
+		plugin.getLogger().info("World:" + world);
+		randomTp = plugin.getConfig().getBoolean("random_teleport");
+		plugin.getLogger().info("random tp:" + randomTp);
+		range = plugin.getConfig().getInt("random_teleport.range");
+		plugin.getLogger().info("range:" + range);
+		x = plugin.getConfig().getInt("world.x");
+		plugin.getLogger().info("X:" + x);
+		y = plugin.getConfig().getInt("world.y");
+		plugin.getLogger().info("Y:" + y);
+		z = plugin.getConfig().getInt("world.z");
+		plugin.getLogger().info("Z:" + z);
+	}
 }

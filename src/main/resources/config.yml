@@ -1,9 +1,11 @@
-random_teleport:
-  random: false
-  range: 1000
+#Define o nome do mundo para onde os players serão teleportados, e as coordenadas para o teleporte fixo.
+spawn_world:
+  name: world
+  x: 0
+  y: 0
+  z: 0
 
-world:
-  name: teste
-  x: 300
-  y: 450
-  z: 112
+#Define se o teleporte será randomico ou fixo, e o limite (range) de blocos que o player será teleportado.
+random_teleport:
+  random: true
+  range: 1000

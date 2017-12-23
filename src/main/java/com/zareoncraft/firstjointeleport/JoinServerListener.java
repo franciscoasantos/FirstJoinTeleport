@@ -11,7 +11,7 @@ public class JoinServerListener implements Listener {
 	private JavaPlugin plugin;
 	private boolean randomTp;
 	private int x, y, z, range;
-	private String world;
+	private String worldStrig;
 
 	JoinServerListener(JavaPlugin plugin) {
 		this.plugin = plugin;
@@ -24,40 +24,38 @@ public class JoinServerListener implements Listener {
 
 		//if (!event.getPlayer().hasPlayedBefore()) {
 		if (randomTp) {
-			Bukkit.getConsoleSender().sendMessage("§4Random TP Ativado.");
-
-			Teleport tp = new Teleport(Bukkit.getWorld(this.world), range);
-
-			tp.randomTeleportPlayer(event.getPlayer());
-
+			try {
+				Bukkit.getConsoleSender().sendMessage("§4Random TP Ativado.");
+				TeleportLocation tp = new TeleportLocation(Bukkit.getWorld(this.worldStrig), range);
+				tp.randomTeleportPlayer(event.getPlayer());
+			} catch (NullPointerException ex) {
+				Bukkit.getConsoleSender().sendMessage("§4[FJT]Algo deu errado, verifique as configuracoes.");
+			}
 		} else {
 			try {
 				Bukkit.getConsoleSender().sendMessage("§4TP Fixo Ativado.");
-
-				Teleport tp = new Teleport(this.world, this.x, this.y, this.z);
-
+				TeleportLocation tp = new TeleportLocation(this.worldStrig, this.x, this.y, this.z);
 				tp.fixedTeleportPlayer(event.getPlayer());
-
-				//event.getPlayer().teleport(getFixedLocation());
 			} catch (NullPointerException ex) {
-				Bukkit.getConsoleSender().sendMessage("§5O mundo declarado em world.name no config.yml não foi encontrado.\n" + ex.getMessage());
+				Bukkit.getConsoleSender().sendMessage("§4[FJT]Algo deu errado, verifique as configuracoes.");
 			}
 		}
 		//}
 	}
 
 	private void getConfigs() {
-		world = plugin.getConfig().getString("world.name");
-		plugin.getLogger().info("World:" + world);
-		randomTp = plugin.getConfig().getBoolean("random_teleport");
-		plugin.getLogger().info("random tp:" + randomTp);
+		worldStrig = plugin.getConfig().getString("spawn_world.name");
+		randomTp = plugin.getConfig().getBoolean("random_teleport.random");
 		range = plugin.getConfig().getInt("random_teleport.range");
-		plugin.getLogger().info("range:" + range);
-		x = plugin.getConfig().getInt("world.x");
-		plugin.getLogger().info("X:" + x);
-		y = plugin.getConfig().getInt("world.y");
-		plugin.getLogger().info("Y:" + y);
-		z = plugin.getConfig().getInt("world.z");
-		plugin.getLogger().info("Z:" + z);
+		x = plugin.getConfig().getInt("spawn_world.x");
+		y = plugin.getConfig().getInt("spawn_world.y");
+		z = plugin.getConfig().getInt("spawn_world.z");
+
+//		Bukkit.getConsoleSender().sendMessage("World: " + worldStrig);
+//		Bukkit.getConsoleSender().sendMessage("random: " + randomTp);
+//		Bukkit.getConsoleSender().sendMessage("range: " + range);
+//		Bukkit.getConsoleSender().sendMessage("x: " + x);
+//		Bukkit.getConsoleSender().sendMessage("y: " + y);
+//		Bukkit.getConsoleSender().sendMessage("z: " + z);
 	}
 }

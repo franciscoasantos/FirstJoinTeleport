@@ -22,25 +22,25 @@ public class JoinServerListener implements Listener {
 
 		this.getConfigs();
 
-		//if (!event.getPlayer().hasPlayedBefore()) {
-		if (randomTp) {
-			try {
-				Bukkit.getConsoleSender().sendMessage("§4Random TP Ativado.");
-				TeleportLocation tp = new TeleportLocation(Bukkit.getWorld(this.worldStrig), range);
-				tp.randomTeleportPlayer(event.getPlayer());
-			} catch (NullPointerException ex) {
-				Bukkit.getConsoleSender().sendMessage("§4[FJT]Algo deu errado, verifique as configuracoes.");
-			}
-		} else {
-			try {
-				Bukkit.getConsoleSender().sendMessage("§4TP Fixo Ativado.");
-				TeleportLocation tp = new TeleportLocation(this.worldStrig, this.x, this.y, this.z);
-				tp.fixedTeleportPlayer(event.getPlayer());
-			} catch (NullPointerException ex) {
-				Bukkit.getConsoleSender().sendMessage("§4[FJT]Algo deu errado, verifique as configuracoes.");
+		if (!event.getPlayer().hasPlayedBefore()) {
+			if (randomTp) {
+				try {
+					Bukkit.getConsoleSender().sendMessage("§4Random TP Ativado.");
+					TeleportLocation tp = new TeleportLocation(Bukkit.getWorld(this.worldStrig), range);
+					tp.randomTeleportPlayer(event.getPlayer());
+				} catch (NullPointerException ex) {
+					Bukkit.getConsoleSender().sendMessage("§4[FJT]Algo deu errado, verifique as configuracoes.");
+				}
+			} else {
+				try {
+					Bukkit.getConsoleSender().sendMessage("§4TP Fixo Ativado.");
+					TeleportLocation tp = new TeleportLocation(this.worldStrig, this.x, this.y, this.z);
+					tp.fixedTeleportPlayer(event.getPlayer());
+				} catch (NullPointerException ex) {
+					Bukkit.getConsoleSender().sendMessage("§4[FJT]Algo deu errado, verifique as configuracoes.");
+				}
 			}
 		}
-		//}
 	}
 
 	private void getConfigs() {

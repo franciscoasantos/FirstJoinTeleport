@@ -1,11 +1,17 @@
 #Define o nome do mundo para onde os players serão teleportados, e as coordenadas para o teleporte fixo.
 spawn_world:
   name: world
-  x: 0
-  y: 0
-  z: 0
 
-#Define se o teleporte será randomico ou fixo, e o limite (range) de blocos que o player será teleportado.
+#Define se o teleporte será randomico ou fixo.
+random_tp: true
+
+#Define as coordenadas do teleporte fixo.
+fixed_teleport:
+  fix_x: 0
+  fix_y: 0
+  fix_z: 0
+
+#Define o limite mínimo e o limite máximo ('min_range' e 'max_range') de blocos que o player será teleportado.
 random_teleport:
-  random: true
-  range: 1000
+  min_range: 100
+  max_range: 1000

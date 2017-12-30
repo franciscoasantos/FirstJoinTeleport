@@ -7,10 +7,10 @@ public class FirstJoinTeleport extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
-		PluginConfig config = new PluginConfig(this);
+		PluginConfig pluginConfig = new PluginConfig(this);
 
 		Bukkit.getConsoleSender().sendMessage("§5FJT Ativado!");
-		getServer().getPluginManager().registerEvents(new JoinServerListener(config), this);
+		getServer().getPluginManager().registerEvents(new JoinServerListener(pluginConfig), this);
 	}
 
 	@Override

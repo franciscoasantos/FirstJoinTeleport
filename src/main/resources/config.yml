@@ -2,6 +2,12 @@
 spawn_world:
   name: world
 
+#Mensagem para quando o jogador for teleportado randomicamente, delay em segundos para a exibição da mensagem
+welcome_message:
+  enabled: false
+  message: Bem-vindo! Você foi transportado para uma coordenada aleatória para começar seu jogo!
+  delay: 1
+
 #Define se o teleporte será randomico ou fixo.
 random_tp: true
 

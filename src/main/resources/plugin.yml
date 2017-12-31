@@ -1,3 +1,11 @@
 name: FirstJoinTeleport
-version: 1.0
+version: 1.0.1
 main: com.zareoncraft.firstjointeleport.FirstJoinTeleport
+commands:
+  randomtp:
+    description: Teleport to a random location on map.
+    usage: /randomtp
+
+permissions:
+  FirstJoinTeleport.RandomTP:
+    description: Dá acesso ao teleporte random.

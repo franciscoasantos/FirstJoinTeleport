@@ -6,7 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 
-final class PluginConfig {
+public final class PluginConfig {
 	private final boolean RANDOM_TP;
 	private final boolean WELCOME_MESSAGE_ENABLE;
 	private final double FIX_X;
@@ -92,7 +92,7 @@ final class PluginConfig {
 		return WELCOME_MESSAGE;
 	}
 
-	JavaPlugin getPlugin() {
+	public JavaPlugin getPlugin() {
 		return this.PLUGIN;
 	}
 

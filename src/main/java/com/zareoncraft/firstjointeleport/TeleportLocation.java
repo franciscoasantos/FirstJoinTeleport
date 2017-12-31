@@ -4,27 +4,21 @@ import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
-class TeleportLocation {
+public class TeleportLocation {
 	private final PluginConfig pluginConfig;
 	private final World world;
 
-	TeleportLocation(PluginConfig pluginConfig) {
+	public TeleportLocation(PluginConfig pluginConfig) {
 		this.pluginConfig = pluginConfig;
 		this.world = pluginConfig.getWorld();
 	}
 
-	void randomTeleportPlayer(Player player) {
-		final Player p = player;
+	public Location randomTeleportPlayer(Player player) {
 		Location location = this.getRandomLocation();
 		this.loadChunk(location);
-		p.teleport(location);
-		if (pluginConfig.isWelcomeMessageEnable()) {
-			Bukkit.getScheduler().scheduleSyncDelayedTask(pluginConfig.getPlugin(), new Runnable() {
-				public void run() {
-					p.sendMessage(ChatColor.GREEN + pluginConfig.getWelcomeMessage());
-				}
-			}, 20 * pluginConfig.getDelay());
-		}
+		player.teleport(location);
+		sendMessage(player);
+		return location;
 	}
 
 	void fixedTeleportPlayer(Player player) {
@@ -73,16 +67,26 @@ class TeleportLocation {
 
 	private double randomNumber() {
 		int number = (int) (Math.random() * pluginConfig.getMaxRange());
-		int valor = (int) (Math.random() * 10); //variável que vai definir se a cordenada gerada será positiva ou negativa
+		int valor = (int) (Math.random() * 100); //variável que vai definir se a cordenada gerada será positiva ou negativa
 
 		if (number < pluginConfig.getMinRange()) {
 			number += pluginConfig.getMinRange();
 		}
 
-		if (valor % 2 != 0) { //caso @valor seja ímpar, o @numero se torna negativo
+		if (valor % 2 != 0) { //caso valor seja ímpar, o numero se torna negativo
 			number *= -1;
 		}
 
 		return number + 0.5; //soma com 0.5 para o teleporte ser no centro do bloco
+	}
+
+	private void sendMessage(final Player player) {
+		if (pluginConfig.isWelcomeMessageEnable()) {
+			Bukkit.getScheduler().scheduleSyncDelayedTask(pluginConfig.getPlugin(), new Runnable() {
+				public void run() {
+					player.sendMessage(ChatColor.GREEN + pluginConfig.getWelcomeMessage());
+				}
+			}, 20 * pluginConfig.getDelay());
+		}
 	}
 }

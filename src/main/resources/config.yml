@@ -1,23 +1,34 @@
-#Define o nome do mundo para onde os players serão teleportados, e as coordenadas para o teleporte fixo.
+#It defines the world name where players will be teleported.
 spawn_world:
   name: world
 
-#Mensagem para quando o jogador for teleportado randomicamente, delay em segundos para a exibição da mensagem
+#It defines if the welcome_message will be shown when the player is teleported
 welcome_message:
   enabled: false
-  message: Bem-vindo! Você foi transportado para uma coordenada aleatória para começar seu jogo!
   delay: 1
 
-#Define se o teleporte será randomico ou fixo.
+#It defines if the teleport will be in a random coordinate or fixed coordinate.
 random_tp: true
 
-#Define as coordenadas do teleporte fixo.
+#It defines the fixed coordinates of teleport.
 fixed_teleport:
   fix_x: 0
   fix_y: 0
   fix_z: 0
 
-#Define o limite mínimo e o limite máximo ('min_range' e 'max_range') de blocos que o player será teleportado.
+#It defines the minimum range and the maximum range ('min_range' and 'max_range') to random teleport.
 random_teleport:
   min_range: 100
   max_range: 1000
+  
+#Plugin messages
+messages:
+  access_denied: You cannot perform this command.
+  command_use: Use /randomtp [player] to teleport a player.
+  config_error: Something is wrong, check the config.yml.
+  player_not_found: Player not found.
+  player_teleported: Player {{player}} teleported to {{loc_x}} {{loc_y}} {{loc_z}}.
+  plugin_yml_found: Config.yml found, loading!
+  plugin_yml_not_found: Config.yml not found, creating!
+  random_teleport_message: You was teleported to a random location.
+  welcome_message: Welcome! You was teleported to a random location to start your game.

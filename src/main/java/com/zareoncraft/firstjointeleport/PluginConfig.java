@@ -17,7 +17,6 @@ public final class PluginConfig {
 	private final int DELAY;
 	private final JavaPlugin PLUGIN;
 	private final String WORLD_NAME;
-	private final String WELCOME_MESSAGE;
 
 	PluginConfig(JavaPlugin plugin) {
 		PLUGIN = plugin;
@@ -30,7 +29,6 @@ public final class PluginConfig {
 		MAX_RANGE = PLUGIN.getConfig().getInt("random_teleport.max_range");
 		RANDOM_TP = PLUGIN.getConfig().getBoolean("random_tp");
 		WELCOME_MESSAGE_ENABLE = PLUGIN.getConfig().getBoolean("welcome_message.enabled");
-		WELCOME_MESSAGE = PLUGIN.getConfig().getString("welcome_message.message");
 		DELAY = PLUGIN.getConfig().getInt("welcome_message.delay");
 		WORLD_NAME = PLUGIN.getConfig().getString("spawn_world.name");
 
@@ -45,10 +43,10 @@ public final class PluginConfig {
 			File file = new File(PLUGIN.getDataFolder(), "config.yml");
 
 			if (!file.exists()) {
-				PLUGIN.getLogger().info("Config.yml nao encontrado, criando!");
+				PLUGIN.getLogger().info(Messages.getMessage(Messages.PLUGIN_YML_NOT_FOUND));
 				PLUGIN.saveDefaultConfig();
 			} else {
-				PLUGIN.getLogger().info("Config.yml encontrado, carregando!");
+				PLUGIN.getLogger().info(Messages.getMessage(Messages.PLUGIN_YML_FOUND));
 				PLUGIN.reloadConfig();
 			}
 		} catch (NullPointerException e) {
@@ -86,10 +84,6 @@ public final class PluginConfig {
 
 	boolean isWelcomeMessageEnable() {
 		return WELCOME_MESSAGE_ENABLE;
-	}
-
-	String getWelcomeMessage() {
-		return WELCOME_MESSAGE;
 	}
 
 	public JavaPlugin getPlugin() {

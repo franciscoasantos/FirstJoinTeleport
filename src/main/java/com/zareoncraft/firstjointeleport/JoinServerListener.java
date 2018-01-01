@@ -20,15 +20,16 @@ class JoinServerListener implements Listener {
 				try {
 					TeleportLocation tp = new TeleportLocation(pluginConfig);
 					tp.randomTeleportPlayer(event.getPlayer());
+					tp.sendWelcomeMessage(event.getPlayer());
 				} catch (NullPointerException ex) {
-					Bukkit.getConsoleSender().sendMessage("§4[FJT]Algo deu errado, verifique as configuracoes.");
+					Bukkit.getConsoleSender().sendMessage(Messages.getMessage(Messages.CONFIG_ERROR));
 				}
 			} else {
 				try {
 					TeleportLocation tp = new TeleportLocation(pluginConfig);
 					tp.fixedTeleportPlayer(event.getPlayer());
 				} catch (NullPointerException ex) {
-					Bukkit.getConsoleSender().sendMessage("§4[FJT]Algo deu errado, verifique as configuracoes.");
+					Bukkit.getConsoleSender().sendMessage(Messages.getMessage(Messages.CONFIG_ERROR));
 				}
 			}
 		}

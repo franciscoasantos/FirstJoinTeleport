@@ -17,7 +17,6 @@ public class TeleportLocation {
 		Location location = this.getRandomLocation();
 		this.loadChunk(location);
 		player.teleport(location);
-		sendMessage(player);
 		return location;
 	}
 
@@ -42,11 +41,10 @@ public class TeleportLocation {
 
 			block = locationCheck.getBlock();
 
-			Bukkit.getConsoleSender().sendMessage("§4Localizacao gerada: ");
-			Bukkit.getConsoleSender().sendMessage("§4X: " + block.getX() + " Y: " + block.getY() + " Z: " + block.getZ() + " "
-					+ block.getType().toString());
+//			Bukkit.getConsoleSender().sendWelcomeMessage("§4Localizacao gerada: ");
+//			Bukkit.getConsoleSender().sendWelcomeMessage("§4X: " + block.getX() + " Y: " + block.getY() + " Z: " + block.getZ() + " "
+//					+ block.getType().toString());
 		} while ((block.isLiquid()) || (block.getType() == Material.CACTUS));
-
 		return location;
 	}
 
@@ -60,31 +58,31 @@ public class TeleportLocation {
 
 	private void loadChunk(Location location) {
 		Chunk chunk = this.world.getChunkAt(location);
-		if (!chunk.isLoaded()) { //verifica se o chunck está carregado, se não carrega-o antes do teleporte
+		if (!chunk.isLoaded()) {
 			chunk.load(true);
 		}
 	}
 
 	private double randomNumber() {
 		int number = (int) (Math.random() * pluginConfig.getMaxRange());
-		int valor = (int) (Math.random() * 100); //variável que vai definir se a cordenada gerada será positiva ou negativa
+		int value = (int) (Math.random() * 100); //variable to defines if the coordinate is positive or negative
 
 		if (number < pluginConfig.getMinRange()) {
 			number += pluginConfig.getMinRange();
 		}
 
-		if (valor % 2 != 0) { //caso valor seja ímpar, o numero se torna negativo
+		if (value % 2 != 0) { //if value is odd, number becomes negative
 			number *= -1;
 		}
 
-		return number + 0.5; //soma com 0.5 para o teleporte ser no centro do bloco
+		return number + 0.5; //sum with 0.5 to teleport be in middle of block
 	}
 
-	private void sendMessage(final Player player) {
+	void sendWelcomeMessage(final Player player) {
 		if (pluginConfig.isWelcomeMessageEnable()) {
 			Bukkit.getScheduler().scheduleSyncDelayedTask(pluginConfig.getPlugin(), new Runnable() {
 				public void run() {
-					player.sendMessage(ChatColor.GREEN + pluginConfig.getWelcomeMessage());
+					player.sendMessage(ChatColor.GREEN + Messages.getMessage(Messages.WELCOME_MESSAGE));
 				}
 			}, 20 * pluginConfig.getDelay());
 		}

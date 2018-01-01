@@ -5,22 +5,24 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class FirstJoinTeleport extends JavaPlugin {
+	static FirstJoinTeleport plugin;
 
 	@Override
 	public void onEnable() {
+		plugin = this;
 		PluginConfig pluginConfig = new PluginConfig(this);
 
-		//Eventos
+		//Events
 		getServer().getPluginManager().registerEvents(new JoinServerListener(pluginConfig), this);
 
-		//Comandos
+		//Commands
 		getCommand("randomtp").setExecutor(new RandomTp(pluginConfig));
 
-		Bukkit.getConsoleSender().sendMessage("§5FJT Ativado!");
+		Bukkit.getConsoleSender().sendMessage("§5FJT Enabled!");
 	}
 
 	@Override
 	public void onDisable() {
-		Bukkit.getConsoleSender().sendMessage("§5FJT Desativado!");
+		Bukkit.getConsoleSender().sendMessage("§5FJT Disabled!");
 	}
 }

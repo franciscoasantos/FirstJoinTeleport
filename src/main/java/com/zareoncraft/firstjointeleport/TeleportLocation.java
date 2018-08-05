@@ -41,9 +41,6 @@ public class TeleportLocation {
 
 			block = locationCheck.getBlock();
 
-//			Bukkit.getConsoleSender().sendWelcomeMessage("§4Localizacao gerada: ");
-//			Bukkit.getConsoleSender().sendWelcomeMessage("§4X: " + block.getX() + " Y: " + block.getY() + " Z: " + block.getZ() + " "
-//					+ block.getType().toString());
 		} while ((block.isLiquid()) || (block.getType() == Material.CACTUS));
 		return location;
 	}

@@ -42,6 +42,9 @@ public class TeleportLocation {
 			block = locationCheck.getBlock();
 
 		} while ((block.isLiquid()) || (block.getType() == Material.CACTUS));
+		
+		location.setY(location.getY() + 2);
+		
 		return location;
 	}
 

@@ -22,12 +22,10 @@ class JoinServerListener implements Listener {
 				try {
 					TeleportLocation tp = new TeleportLocation(pluginConfig);
 					Player player = event.getPlayer();
-					Location location = tp.randomTeleportPlayer(player);
-					tp.sendWelcomeMessage(player);
-					
-					//Set new spawn point
-					player.setBedSpawnLocation(location, true);
+					Location spawnLocation = tp.randomTeleportPlayer(player);
+					player.setBedSpawnLocation(spawnLocation, true);
 					player.saveData();
+					tp.sendWelcomeMessage(player);
 				} catch (NullPointerException ex) {
 					Bukkit.getConsoleSender().sendMessage(Messages.getMessage(Messages.CONFIG_ERROR));
 				}
